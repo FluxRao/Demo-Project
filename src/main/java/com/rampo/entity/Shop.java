@@ -70,6 +70,9 @@ public class Shop {
 	@Column(name = "views", nullable = false, columnDefinition = "int default 0")
 	private long views;
 
+	@Column(name = "likes", nullable = true, columnDefinition = "int default 0")
+	private long likes;
+
 	@Column(name = "imageurl1", nullable = true)
 	private String imageUrl1;
 

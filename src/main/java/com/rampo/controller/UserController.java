@@ -1,8 +1,5 @@
 package com.rampo.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rampo.entity.Roles;
 import com.rampo.model.input.LoginInput;
 import com.rampo.model.input.UserInput;
+import com.rampo.model.output.ResponseOutput;
+import com.rampo.repository.RolesRepository;
 import com.rampo.service.UserService;
+import com.rampo.util.Constants;
 
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -28,55 +29,91 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private RolesRepository rolesRepo;
+
 	@Operation(summary = "endpoint to save user details")
 	@PostMapping(value = "/register")
-	public ResponseEntity<String> saveUser(@RequestBody UserInput userInput) {
-		try {
-			String message = userService.saveUser(userInput);
-			return new ResponseEntity<String>(message, HttpStatus.OK);
-		} catch (Exception e) {
+	public ResponseEntity<ResponseOutput> registerUser(@RequestBody UserInput userInput) {
 
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		try {
+			String message = userService.registerUser(userInput);
+			ResponseOutput output = new ResponseOutput(null, message, true, 200);
+			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
+
+		} catch (Exception e) {
+			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 400);
+			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 		}
+
 	}
 
 	@Operation(summary = "endpoint to show whether username is available or already taken ")
 	@RequestMapping(value = "/autoSearch", method = RequestMethod.POST)
-	public ResponseEntity<String> checkAvailabilityOfUserName(@RequestParam String userName) {
+	public ResponseEntity<ResponseOutput> checkAvailabilityOfUserName(@RequestParam String userName) {
 
 		try {
 			String message = userService.checkAvailabilityOfUserName(userName);
-			return new ResponseEntity<String>(message, HttpStatus.OK);
+			ResponseOutput output = new ResponseOutput(null, message, true, 200);
+			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 
 		} catch (Exception e) {
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 400);
+			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 		}
 	}
 
 	@Operation(summary = "endpoint to login")
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<String> login(@RequestBody LoginInput input) {
+	public ResponseEntity<ResponseOutput> login(@RequestBody LoginInput input) {
+
 		try {
 			String message = userService.login(input);
-			return new ResponseEntity<String>(message, HttpStatus.OK);
-		} catch (Exception e) {
+			ResponseOutput output = new ResponseOutput(null, message, true, 200);
+			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		} catch (Exception e) {
+			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 400);
+			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 		}
+
 	}
 
 	@Operation(summary = "endpoint to get user details")
 	@RequestMapping(value = "/details", method = RequestMethod.POST)
-	public ResponseEntity<Map<String, Object>> getUserDetails(@RequestParam String userName) {
+	public ResponseEntity<ResponseOutput> getUserDetails(@RequestParam String userName) {
+
+		if (userName == null) {
+			ResponseOutput output = new ResponseOutput(null, Constants.please_login_to_continue, false, 401);
+			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
+		}
 
 		try {
-			Map<String, Object> output = new HashMap<>();
-			output.put("data", userService.getUserDetails(userName));
-			return new ResponseEntity<Map<String, Object>>(output, HttpStatus.OK);
+			Object data = userService.getUserDetails(userName);
+			ResponseOutput output = new ResponseOutput(data, null, true, 200);
+			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
+
 		} catch (Exception e) {
-			Map<String, Object> output = new HashMap<>();
-			output.putIfAbsent("message", e.getMessage());
-			return new ResponseEntity<Map<String, Object>>(output, HttpStatus.BAD_REQUEST);
+			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 400);
+			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
+		}
+	}
+
+	@Operation(summary = "endpoint to add role")
+	@RequestMapping(value = "/addRole", method = RequestMethod.POST)
+	public ResponseEntity<ResponseOutput> addRole(@RequestParam String role) {
+
+		try {
+			Roles roleEntity = new Roles();
+			roleEntity.setActive(true);
+			roleEntity.setRole(role);
+			Object data = rolesRepo.save(roleEntity);
+			ResponseOutput output = new ResponseOutput(data, null, true, 200);
+			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
+
+		} catch (Exception e) {
+			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 400);
+			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 		}
 	}
 }

@@ -21,7 +21,7 @@ import com.rampo.model.ItemDTO;
 import com.rampo.model.OfferDTO;
 import com.rampo.model.ShopDTO;
 import com.rampo.model.input.ShopIdInput;
-import com.rampo.model.input.pagination.ShopPaginationInput;
+import com.rampo.model.input.pagination.PaginationInput;
 import com.rampo.repository.ShopItemConfigRepository;
 import com.rampo.repository.ShopItemOfferConfigRepository;
 import com.rampo.repository.ShopRepository;
@@ -40,7 +40,7 @@ public class ShopService {
 	@Autowired
 	private ShopItemOfferConfigRepository sioConfigRepo;
 
-	public String saveShopData(ShopDTO shopDTO) throws Exception {
+	public String saveShopData(ShopDTO shopDTO, String userName) throws Exception {
 
 		Shop shop = ObjectMapper.map(shopDTO, Shop.class);
 		shop.setRating(0);
@@ -55,10 +55,10 @@ public class ShopService {
 		}
 	}
 
-	public List<ShopDTO> getAllShopData(ShopPaginationInput shopInput) {
+	public List<ShopDTO> getAllShopData(PaginationInput shopInput, String userName) {
 
-		Sort sort = Sort.by(shopInput.getShopSortDirection(), shopInput.getShopSortBy());
-		Pageable pageable = PageRequest.of(shopInput.getShopPageNumber(), shopInput.getShopPageSize(), sort);
+		Sort sort = Sort.by(shopInput.getSortDirection(), shopInput.getSortBy());
+		Pageable pageable = PageRequest.of(shopInput.getPageNumber(), shopInput.getPageSize(), sort);
 
 		Page<Shop> shopPage = shopRepo.findAll(pageable);
 		List<ShopDTO> outputList = new ArrayList<>();
@@ -70,7 +70,7 @@ public class ShopService {
 		return outputList;
 	}
 
-	public Map<String, Object> findById(ShopIdInput input) {
+	public Map<String, Object> findById(ShopIdInput input, String userName) {
 
 		Map<String, Object> output = new HashMap<>();
 		output.put("shop", shopRepo.findById(input.getShopid()));

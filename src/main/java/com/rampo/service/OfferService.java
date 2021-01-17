@@ -20,7 +20,7 @@ import com.rampo.entity.ShopItemOfferConfig;
 import com.rampo.model.ItemDTO;
 import com.rampo.model.OfferDTO;
 import com.rampo.model.input.OfferIdInput;
-import com.rampo.model.input.pagination.OfferPaginationInput;
+import com.rampo.model.input.pagination.PaginationInput;
 import com.rampo.repository.OfferRepository;
 import com.rampo.repository.ShopItemConfigRepository;
 import com.rampo.repository.ShopItemOfferConfigRepository;
@@ -38,9 +38,9 @@ public class OfferService {
 	@Autowired
 	private ShopItemConfigRepository siConfigRepo;
 
-	public List<OfferDTO> getAllOfferData(OfferPaginationInput offerInput) {
-		Sort sort = Sort.by(offerInput.getOfferSortDirection(), offerInput.getOfferSortBy());
-		Pageable pageable = PageRequest.of(offerInput.getOfferPageNumber(), offerInput.getOfferPageSize(), sort);
+	public List<OfferDTO> getAllOfferData(PaginationInput offerInput) {
+		Sort sort = Sort.by(offerInput.getSortDirection(), offerInput.getSortBy());
+		Pageable pageable = PageRequest.of(offerInput.getPageNumber(), offerInput.getPageSize(), sort);
 		Page<Offer> offerPage = offerRepo.findAll(pageable);
 		List<OfferDTO> outputList = new ArrayList<>();
 		for (Offer offer : offerPage) {
@@ -51,10 +51,10 @@ public class OfferService {
 		return outputList;
 	}
 
-	public List<OfferDTO> getOffersWhichAreOnLastDate(OfferPaginationInput offerInput) {
+	public List<OfferDTO> getOffersWhichAreOnLastDate(PaginationInput hurryUpInput) {
 
-		Sort sort = Sort.by(offerInput.getOfferSortDirection(), offerInput.getOfferSortBy());
-		Pageable pageable = PageRequest.of(offerInput.getOfferPageNumber(), offerInput.getOfferPageSize(), sort);
+		Sort sort = Sort.by(hurryUpInput.getSortDirection(), hurryUpInput.getSortBy());
+		Pageable pageable = PageRequest.of(hurryUpInput.getPageNumber(), hurryUpInput.getPageSize(), sort);
 		Slice<Offer> offerSlice = offerRepo.findByEndDate(LocalDate.now(), pageable);
 		List<OfferDTO> outputList = new ArrayList<>();
 		for (Offer offer : offerSlice) {
@@ -65,7 +65,7 @@ public class OfferService {
 		return outputList;
 	}
 
-	public Map<String, Object> findById(OfferIdInput input) {
+	public Map<String, Object> findById(OfferIdInput input, String userName) {
 
 		Map<String, Object> output = new HashMap<>();
 		output.put("offerId", input.getOfferId());

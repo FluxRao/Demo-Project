@@ -16,7 +16,7 @@ import com.rampo.entity.Category;
 import com.rampo.entity.Item;
 import com.rampo.model.CategoryDTO;
 import com.rampo.model.ItemDTO;
-import com.rampo.model.input.pagination.CategoryPaginationInput;
+import com.rampo.model.input.pagination.PaginationInput;
 import com.rampo.repository.CategoryRepository;
 import com.rampo.repository.ItemRepository;
 import com.rampo.util.ObjectMapper;
@@ -30,11 +30,10 @@ public class CategoryService {
 	@Autowired
 	private ItemRepository itemRepo;
 
-	public List<CategoryDTO> getAllCategoryData(CategoryPaginationInput categoryInput) {
+	public List<CategoryDTO> getAllCategoryData(PaginationInput categoryInput, String userName) {
 
-		Sort sort = Sort.by(categoryInput.getCategorySDirection(), categoryInput.getCategorySortBy());
-		Pageable pageable = PageRequest.of(categoryInput.getCategoryPageNumber(), categoryInput.getCategoryPageSize(),
-				sort);
+		Sort sort = Sort.by(categoryInput.getSortDirection(), categoryInput.getSortBy());
+		Pageable pageable = PageRequest.of(categoryInput.getPageNumber(), categoryInput.getPageSize(), sort);
 
 		Page<Category> categoryPage = categoryRepo.findAll(pageable);
 		List<CategoryDTO> outputList = new ArrayList<>();
@@ -44,7 +43,7 @@ public class CategoryService {
 		return outputList;
 	}
 
-	public Map<String, Object> findByCategory(String categoryName) {
+	public Map<String, Object> findByCategory(String categoryName, String userName) {
 
 		Map<String, Object> output = new HashMap<>();
 		output.put("category", ObjectMapper.map(categoryRepo.findById(categoryName).get(), CategoryDTO.class));

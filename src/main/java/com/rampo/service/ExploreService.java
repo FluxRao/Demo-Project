@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rampo.model.input.pagination.ExploreInput;
-import com.rampo.model.input.pagination.OfferPaginationInput;
+import com.rampo.model.input.pagination.PaginationInput;
 
 @Service
 public class ExploreService {
@@ -14,11 +14,11 @@ public class ExploreService {
 	@Autowired
 	private OfferService offerService;
 
-	public HashMap<String, Object> getExplorePageData(ExploreInput input) {
+	public HashMap<String, Object> getExplorePageData(ExploreInput input, String userName) {
 
-		OfferPaginationInput HurryUpInput = input.getHurryUpInput();
-		OfferPaginationInput topRated = input.getTopRated();
-		OfferPaginationInput mostPopular = input.getMostPopular();
+		PaginationInput HurryUpInput = input.getHurryUpInput();
+		PaginationInput topRated = input.getTopRated();
+		PaginationInput mostPopular = input.getMostPopular();
 
 		HashMap<String, Object> output = new HashMap<String, Object>();
 		output.put("hurryUp", offerService.getOffersWhichAreOnLastDate(HurryUpInput));

@@ -1,17 +1,18 @@
 package com.rampo.controller;
 
-import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rampo.model.output.ResponseOutput;
 import com.rampo.service.SearchService;
+import com.rampo.util.Constants;
 
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -25,18 +26,44 @@ public class SearchController {
 
 	@Operation(summary = "returns search result")
 	@GetMapping(value = "/all")
-	public ResponseEntity<HashMap<String, Object>> search(@RequestParam String keyword) {
-		try {
-			HashMap<String, Object> output = searchService.search(keyword);
-			if (output.isEmpty()) {
-				return new ResponseEntity<HashMap<String, Object>>(HttpStatus.NO_CONTENT);
-			}
+	public ResponseEntity<ResponseOutput> search(@RequestParam String keyword, @PathVariable String userName) {
 
-			return new ResponseEntity<HashMap<String, Object>>(output, HttpStatus.OK);
+		if (userName == null) {
+			ResponseOutput output = new ResponseOutput(null, Constants.please_login_to_continue, false, 401);
+			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
+		}
+
+		try {
+			Object data = searchService.search(keyword, userName);
+			ResponseOutput output = new ResponseOutput(data, null, true, 200);
+			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 
 		} catch (Exception e) {
-			return new ResponseEntity<HashMap<String, Object>>(HttpStatus.BAD_REQUEST);
+			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 400);
+			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 		}
+
+	}
+
+	@Operation(summary = "returns category search result")
+	@GetMapping(value = "/categories")
+	public ResponseEntity<ResponseOutput> searchCategory(@RequestParam String keyword, @PathVariable String userName) {
+
+		if (userName == null) {
+			ResponseOutput output = new ResponseOutput(null, Constants.please_login_to_continue, false, 401);
+			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
+		}
+
+		try {
+			Object data = searchService.searchCategory(keyword, userName);
+			ResponseOutput output = new ResponseOutput(data, null, true, 200);
+			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
+
+		} catch (Exception e) {
+			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 400);
+			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
+		}
+
 	}
 
 }

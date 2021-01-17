@@ -1,6 +1,7 @@
 package com.rampo.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -43,9 +46,10 @@ public class Item {
 	@JoinColumn(name = "brand", nullable = true)
 	private Brand brand;
 
-	@ManyToOne
+	@ManyToMany
+	@JoinTable(name = "itemcategorymap", joinColumns = @JoinColumn(name = "itemid"), inverseJoinColumns = @JoinColumn(name = "category"))
 	@JoinColumn(name = "category", nullable = false)
-	private Category category;
+	private List<Category> category;
 
 	@Column(name = "rating", nullable = true, columnDefinition = "decimal default 0")
 	private double rating;
@@ -55,6 +59,9 @@ public class Item {
 
 	@Column(name = "views", nullable = false, columnDefinition = "int default 0")
 	private long views;
+
+	@Column(name = "likes", nullable = true, columnDefinition = "int default 0")
+	private long likes;
 
 	@Column(name = "createdon", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date createdOn;

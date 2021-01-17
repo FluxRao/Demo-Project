@@ -34,4 +34,10 @@ public class ShopUserMap {
 
 	@Column(name = "didrate", nullable = false)
 	private boolean didRate;
+
+	@Column(name = "rating", nullable = true)
+	private float rating;
+
+	@Column(name = "didview", nullable = false)
+	private boolean didView;
 }

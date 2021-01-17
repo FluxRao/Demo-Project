@@ -5,39 +5,36 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rampo.model.ShopDTO;
-import com.rampo.model.input.ShopIdInput;
-import com.rampo.model.input.pagination.PaginationInput;
+import com.rampo.model.input.RatingInput;
 import com.rampo.model.output.ResponseOutput;
-import com.rampo.service.ShopService;
+import com.rampo.service.RatingService;
 import com.rampo.util.Constants;
 
 import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping("/shop/v1")
-public class ShopController {
+@CrossOrigin
+@RequestMapping("/rating/v1")
+public class RatingController {
 
 	@Autowired
-	private ShopService shopService;
+	private RatingService ratingService;
 
-	@Operation(summary = "endpoint to save shop details")
-	@RequestMapping(value = "/saveData", method = RequestMethod.POST)
-	public ResponseEntity<ResponseOutput> saveShopData(@RequestBody ShopDTO shopDTO, @PathVariable String userName) {
-
+	@Operation(summary = "endpoint to get all shop, brand and offer details")
+	@PostMapping("/item/{userName}")
+	public ResponseEntity<ResponseOutput> rateItem(@PathVariable String userName, @RequestBody RatingInput input) {
 		if (userName == null) {
 			ResponseOutput output = new ResponseOutput(null, Constants.please_login_to_continue, false, 401);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 		}
 
 		try {
-			Object data = shopService.saveShopData(shopDTO, userName);
+			Object data = ratingService.rateItem(input, userName);
 			ResponseOutput output = new ResponseOutput(data, null, true, 200);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 
@@ -45,21 +42,18 @@ public class ShopController {
 			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 400);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 		}
-
 	}
 
-	@Operation(summary = "endpoint to get all shop details")
-	@RequestMapping(value = "/all", method = RequestMethod.POST)
-	public ResponseEntity<ResponseOutput> getAllShopData(@RequestBody PaginationInput input,
-			@PathVariable String userName) {
-
+	@Operation(summary = "endpoint to get all shop, brand and offer details")
+	@PostMapping("/shop/{userName}")
+	public ResponseEntity<ResponseOutput> rateShop(@PathVariable String userName, @RequestBody RatingInput input) {
 		if (userName == null) {
 			ResponseOutput output = new ResponseOutput(null, Constants.please_login_to_continue, false, 401);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 		}
 
 		try {
-			Object data = shopService.getAllShopData(input, userName);
+			Object data = ratingService.rateShop(input, userName);
 			ResponseOutput output = new ResponseOutput(data, null, true, 200);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 
@@ -67,20 +61,18 @@ public class ShopController {
 			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 400);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 		}
-
 	}
 
-	@Operation(summary = "endpoint to get perticular shop details")
-	@RequestMapping(value = "/findById", method = RequestMethod.POST)
-	public ResponseEntity<ResponseOutput> findById(@RequestBody ShopIdInput input, @PathVariable String userName) {
-
+	@Operation(summary = "endpoint to get all shop, brand and offer details")
+	@PostMapping("/brand/{userName}")
+	public ResponseEntity<ResponseOutput> rateBrand(@PathVariable String userName, @RequestBody RatingInput input) {
 		if (userName == null) {
 			ResponseOutput output = new ResponseOutput(null, Constants.please_login_to_continue, false, 401);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 		}
 
 		try {
-			Object data = shopService.findById(input, userName);
+			Object data = ratingService.rateBrand(input, userName);
 			ResponseOutput output = new ResponseOutput(data, null, true, 200);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 

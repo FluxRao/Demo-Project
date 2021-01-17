@@ -37,7 +37,7 @@ public class UserService {
 	@Autowired
 	private Validator validator;
 
-	public String saveUser(UserInput userInput) throws Exception {
+	public String registerUser(UserInput userInput) throws Exception {
 
 		boolean usernameFlag = validator.validateUsername(userInput.getUserName());
 		boolean passwordFlag = validator.validatePassword(userInput.getPassword());
@@ -104,7 +104,12 @@ public class UserService {
 		throw new Exception(Constants.login_bad_credentials);
 	}
 
-	public Object getUserDetails(String userName) {
-		return ObjectMapper.map(userRepo.findById(userName).get(), UserDTO.class);
+	public Object getUserDetails(String userName) throws Exception {
+
+		Optional<User> userOptional = userRepo.findById(userName);
+		if (userOptional.isPresent()) {
+			return ObjectMapper.map(userOptional.get(), UserDTO.class);
+		}
+		throw new Exception(Constants.some_error_occured);
 	}
 }
