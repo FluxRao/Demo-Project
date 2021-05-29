@@ -28,15 +28,22 @@ public class Validator {
 		return m.matches();
 	}
 
-	public boolean validateUsername(String name) {
-		String regex = "^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$";
+	public boolean validateUsername(String name) throws Exception {
+		String regex = "[A-Za-z]\\w{5,29}";
 
 		Pattern p = Pattern.compile(regex);
 		if (name == null) {
 			return false;
 		}
 		Matcher m = p.matcher(name);
-		return m.matches();
+		if (!m.matches()) {
+			throw new Exception(Constants.user_username_not_valid);
+		}
+		Optional<User> user = userRepo.findById(name);
+		if (user.isPresent()) {
+			throw new Exception(Constants.username_already_taken);
+		}
+		return true;
 	}
 
 	public boolean validateContactNo(String contactNo) throws Exception {

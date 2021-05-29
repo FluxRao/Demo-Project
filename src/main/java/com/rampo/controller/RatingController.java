@@ -34,12 +34,12 @@ public class RatingController {
 		}
 
 		try {
-			Object data = ratingService.rateItem(input, userName);
-			ResponseOutput output = new ResponseOutput(data, null, true, 200);
+			ratingService.rateItem(input, userName);
+			ResponseOutput output = new ResponseOutput(null, Constants.rated, true, 200);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 
 		} catch (Exception e) {
-			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 400);
+			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 200);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 		}
 	}
@@ -53,31 +53,31 @@ public class RatingController {
 		}
 
 		try {
-			Object data = ratingService.rateShop(input, userName);
-			ResponseOutput output = new ResponseOutput(data, null, true, 200);
+			ratingService.rateShop(input, userName);
+			ResponseOutput output = new ResponseOutput(null, Constants.rated, true, 200);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 
 		} catch (Exception e) {
-			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 400);
+			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 200);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 		}
 	}
 
 	@Operation(summary = "endpoint to get all shop, brand and offer details")
-	@PostMapping("/brand/{userName}")
-	public ResponseEntity<ResponseOutput> rateBrand(@PathVariable String userName, @RequestBody RatingInput input) {
+	@PostMapping("/offer/{userName}")
+	public ResponseEntity<ResponseOutput> rateOffer(@PathVariable String userName, @RequestBody RatingInput input) {
 		if (userName == null) {
 			ResponseOutput output = new ResponseOutput(null, Constants.please_login_to_continue, false, 401);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 		}
 
 		try {
-			Object data = ratingService.rateBrand(input, userName);
-			ResponseOutput output = new ResponseOutput(data, null, true, 200);
+			ratingService.rateOffer(input, userName);
+			ResponseOutput output = new ResponseOutput(null, Constants.rated, true, 200);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 
 		} catch (Exception e) {
-			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 400);
+			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 200);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 		}
 	}

@@ -11,6 +11,7 @@ public class RatingInput {
 
 	private long itemId;
 	private long shopId;
+	private long offerId;
 	private String brandName;
-	private float rating;
+	private long rating;
 }

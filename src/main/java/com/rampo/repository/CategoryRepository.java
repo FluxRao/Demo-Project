@@ -12,6 +12,6 @@ import com.rampo.entity.Category;
 public interface CategoryRepository
 		extends JpaRepository<Category, String>, PagingAndSortingRepository<Category, String> {
 
-	public List<Category> findByCatNameStartsWith(String keyword);
+	public List<Category> findByCatNameContainingIgnoreCase(String keyword);
 
 }

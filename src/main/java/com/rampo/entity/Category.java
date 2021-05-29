@@ -31,6 +31,9 @@ public class Category {
 	@Column(name = "imageurl1", nullable = true)
 	private String imageUrl1;
 
+	@Column(name = "imageurl2", nullable = true)
+	private String imageUrl2;
+
 	@Column(name = "createdon", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date createdOn;
 

@@ -36,7 +36,7 @@ public class BrandUserMap {
 	private boolean didRate;
 
 	@Column(name = "rating", nullable = true)
-	private float rating;
+	private long rating;
 
 	@Column(name = "didview", nullable = false)
 	private boolean didView;

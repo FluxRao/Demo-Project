@@ -1,7 +1,6 @@
 package com.rampo.entity;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,13 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Value;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;
 
@@ -42,17 +41,24 @@ public class Item {
 	@Column(name = "flgactive", nullable = false)
 	private boolean isActive;
 
+	@Column(name = "imageurl1", nullable = true)
+	private String imageUrl1;
+
+	@ManyToOne
+	@JoinColumn(name = "shopid", nullable = true)
+	private Shop shop;
+
 	@ManyToOne
 	@JoinColumn(name = "brand", nullable = true)
 	private Brand brand;
 
-	@ManyToMany
-	@JoinTable(name = "itemcategorymap", joinColumns = @JoinColumn(name = "itemid"), inverseJoinColumns = @JoinColumn(name = "category"))
-	@JoinColumn(name = "category", nullable = false)
-	private List<Category> category;
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name = "category")
+	private Category category;
 
-	@Column(name = "rating", nullable = true, columnDefinition = "decimal default 0")
-	private double rating;
+	@Column(name = "rating", nullable = true)
+	private float rating;
 
 	@Column(name = "noofratings", nullable = true, columnDefinition = "int default 0")
 	private long noOfRatings;

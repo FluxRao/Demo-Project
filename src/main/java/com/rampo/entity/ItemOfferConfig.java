@@ -1,5 +1,7 @@
 package com.rampo.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,30 +11,40 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Value;
 
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "shopitemconfig")
-public class ShopItemConfig {
+@Table(name = "itemofferconfig")
+public class ItemOfferConfig {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long configId;
 
+	@ManyToOne
+	@JoinColumn(name = "itemid", nullable = false)
+	private Item item;
+
+	@ManyToOne
+	@JoinColumn(name = "offerid", nullable = false)
+	private Offer offer;
+
 	@Value("false")
 	@Column(name = "flgactive", nullable = false)
 	private boolean isActive;
 
-	@ManyToOne
-	@JoinColumn(name = "shopid", nullable = false)
-	private Shop shop;
+	@CreationTimestamp
+	@Column(name = "createdon", nullable = false)
+	private Date createdOn;
 
-	@ManyToOne
-	@JoinColumn(name = "itemid", nullable = false)
-	private Item item;
+	@UpdateTimestamp
+	@Column(name = "modifiedon", nullable = true)
+	private Date modifiedOn;
 
 }

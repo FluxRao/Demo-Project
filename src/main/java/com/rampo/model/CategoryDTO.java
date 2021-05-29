@@ -17,6 +17,8 @@ public class CategoryDTO {
 
 	private String imageUrl1;
 
+	private String imageUrl2;
+
 	private Date createdOn;
 
 	private Date modifiedOn;

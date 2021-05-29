@@ -28,8 +28,8 @@ public class Brand {
 	@Column(name = "flgactive", nullable = false)
 	private boolean isActive;
 
-	@Column(name = "rating", nullable = true, columnDefinition = "decimal default 0")
-	private double rating;
+	@Column(name = "rating", nullable = true, columnDefinition = "int default 0")
+	private long rating;
 
 	@Column(name = "noofratings", nullable = true, columnDefinition = "int default 0")
 	private long noOfRatings;

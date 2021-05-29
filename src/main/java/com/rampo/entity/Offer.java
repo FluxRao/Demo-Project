@@ -1,7 +1,5 @@
 package com.rampo.entity;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -28,23 +26,26 @@ public class Offer {
 	@Column(name = "offername", nullable = false, length = 30, unique = false)
 	private String offerName;
 
-	@Column(name = "percentacge", nullable = true)
+	@Column(name = "percentage", nullable = true)
 	private int percentage;
+
+	@Column(name = "decription", nullable = true, length = 500)
+	private String description;
 
 	@Column(name = "flgactive", nullable = false)
 	private boolean isActive;
 
-	@Column(name = "startdate", nullable = false)
-	private LocalDate startDate;
+	@Column(name = "startdate", nullable = true, length = 10)
+	private String startDate;
 
-	@Column(name = "enddate")
-	private LocalDate endDate;
+	@Column(name = "enddate", nullable = true, length = 10)
+	private String endDate;
 
-	@Column(name = "starttime")
-	private LocalTime startTime;
+	@Column(name = "starttime", nullable = true, length = 10)
+	private String startTime;
 
-	@Column(name = "endtime")
-	private LocalTime endTime;
+	@Column(name = "endtime", nullable = true, length = 10)
+	private String endTime;
 
 	@Column(name = "baseparam", nullable = true, length = 50)
 	private String baseParam;
@@ -53,8 +54,8 @@ public class Offer {
 //	@JoinColumn(name = "offertypeid", nullable = false)
 //	private OfferType offertype;
 
-	@Column(name = "rating", nullable = true, columnDefinition = "decimal default 0")
-	private double rating;
+	@Column(name = "rating", nullable = true)
+	private float rating;
 
 	@Column(name = "noofratings", nullable = true, columnDefinition = "int default 0")
 	private long noOfRatings;

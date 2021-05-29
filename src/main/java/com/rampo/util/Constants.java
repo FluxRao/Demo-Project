@@ -17,13 +17,22 @@ public class Constants {
 	public static String user_email_invalid_input = "Invalid Email Id";
 	public static String user_email_already_present = "Email Id already exist";
 	public static String user_save_success = "User added successfully";
-	public static String user_username_not_valid = "Username should be 8-20 in length and should only contain alphabets, numbers, underscore(_) and dot(.) and should not contain spaces.\nUnderscore and dot can't be at the end or start of a username (e.g _username / username_ / .username / username.)\nUnderscore or dot can't be used multiple times in a row (e.g user__name / user..name)\nUnderscore and dot can't be next to each other (e.g user_.name).";
+	public static String user_username_not_valid = "Username should be 6-30 in length and should only contain alphabets, numbers and underscore(_) and should not start with digit.";
 	public static String user_password_not_valid = "Password should be 8-20 charcters in length and should contain atlease one uppercase, one lowercase character,"
 			+ " one digit and one special character from these(!@#$%&*()-+=^)";
+	public static String user_new_password_not_valid = "New password should be 8-20 charcters in length and should contain atlease one uppercase, one lowercase character,"
+			+ " one digit and one special character from these(!@#$%&*()-+=^)";
+	public static String user_could_not_update_data = "Could not update user information";
+	public static String user_data_updated_successfully = "User data updated successfully";
+	public static String user_password_updated_successfully = "Password updated successfully";
+	public static String user_provide_correct_password = "Please provide correct password";
+	public static String please_provide_username = "Please provide userName";
+	public static String please_provide_correct_email = "Please provide correct email";
 
 //	user roles constants
 	public static String role_admin = "admin";
 	public static String role_user = "user";
+	public static String role_shopper = "shopper";
 
 //	username constants
 	public static String username_already_taken = "username already taken.";
@@ -49,4 +58,11 @@ public class Constants {
 
 //	Rating constants
 	public static String rated = "Rated";
+
+//	Item controller constants
+	public static String item_save_failed = "Could not save data. Please try again.";
+	public static String item_save_success = "Item added successfully.";
+
+//	Offer controller constants
+	public static String offer_save_success = "Offer added successfully";
 }

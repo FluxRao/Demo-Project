@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.UpdateTimestamp;
@@ -52,17 +54,14 @@ public class Shop {
 	@Column(name = "shopowner", length = 50, nullable = false)
 	private String shopOwner;
 
-	@Column(name = "shopmanager", length = 50, nullable = false)
-	private String shopManager;
-
 	@Column(name = "shopcontactno", length = 10, nullable = false)
 	private String contactNo;
 
-	@Column(name = "shopmobileno", length = 10)
-	private String shopMobileNo;
+	@Column(name = "shopemail", nullable = true)
+	private String eMail;
 
-	@Column(name = "rating", nullable = true, columnDefinition = "decimal default 0")
-	private double rating;
+	@Column(name = "rating", nullable = true)
+	private float rating;
 
 	@Column(name = "noofratings", nullable = true, columnDefinition = "int default 0")
 	private long noOfRatings;
@@ -88,5 +87,9 @@ public class Shop {
 	@UpdateTimestamp
 	@Column(name = "modifiedon", nullable = true)
 	private Date modifiedOn;
+
+	@ManyToOne
+	@JoinColumn(name = "ownerid")
+	private User owner;
 
 }

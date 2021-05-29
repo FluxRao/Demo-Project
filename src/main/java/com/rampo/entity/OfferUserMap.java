@@ -34,4 +34,10 @@ public class OfferUserMap {
 
 	@Column(name = "didrate", nullable = false)
 	private boolean didRate;
+
+	@Column(name = "didview", nullable = false)
+	private boolean didView;
+
+	@Column(name = "rating", nullable = true)
+	private long rating;
 }

@@ -5,7 +5,9 @@ import lombok.Data;
 @Data
 public class ExploreInput {
 
-	private PaginationInput HurryUpInput;
-	private PaginationInput mostPopular;
-	private PaginationInput topRated;
+	private PaginationWithoutPageInput hurryUp;
+	private PaginationWithoutPageInput mostPopular;
+	private PaginationWithoutPageInput topRated;
+	private String userName;
+	private String city;
 }

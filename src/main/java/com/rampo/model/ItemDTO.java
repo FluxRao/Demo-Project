@@ -13,12 +13,15 @@ public class ItemDTO {
 	private String itemName;
 	private double amount;
 	private String detail;
+	private String imageUrl1;
 	private boolean isActive;
 	private BrandDTO brand;
-	private CategoryDTO category;
+	private String category;
 	private double rating;
 	private long noOfRatings;
 	private long views;
 	private Date createdOn;
 	private Date modifiedOn;
+	private boolean didLike;
+	private ShopDTO shop;
 }

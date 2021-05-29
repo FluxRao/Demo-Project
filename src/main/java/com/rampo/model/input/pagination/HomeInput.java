@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class HomeInput {
 
-	private PaginationInput offerInput;
-	private PaginationInput shopInput;
-	private PaginationInput categoryInput;
+	private PaginationWithoutPageInput offerInput;
+	private PaginationWithoutPageInput shopInput;
+	private PaginationWithoutPageInput categoryInput;
+	private String username;
+	private String city;
 }

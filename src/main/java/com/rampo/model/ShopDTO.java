@@ -19,9 +19,8 @@ public class ShopDTO {
 	private String pincode;
 	private boolean isActive;
 	private String shopOwner;
-	private String shopManager;
 	private String contactNo;
-	private String shopMobileNo;
+	private String eMail;
 	private double rating;
 	private long noOfRatings;
 	private long views;
@@ -30,4 +29,5 @@ public class ShopDTO {
 	private String imageUrl3;
 	private Date createdOn;
 	private Date modifiedOn;
+	private boolean didLike;
 }

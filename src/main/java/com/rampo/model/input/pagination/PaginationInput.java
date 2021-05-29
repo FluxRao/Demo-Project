@@ -14,5 +14,7 @@ public class PaginationInput {
 	private int pageNumber = 0;
 	private int pageSize = 10;
 	private Sort.Direction sortDirection = Sort.Direction.DESC;
-	private String sortBy = "modifiedOn";
+	private String sortBy;
+	private String userName;
+	private String city;
 }

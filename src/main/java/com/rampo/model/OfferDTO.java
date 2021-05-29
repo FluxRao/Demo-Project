@@ -1,7 +1,5 @@
 package com.rampo.model;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -14,33 +12,21 @@ import lombok.NoArgsConstructor;
 public class OfferDTO {
 
 	private long offerId;
-
 	private String offerName;
-
+	private String description;
 	private boolean isActive;
-
-	private LocalDate startDate;
-
-	private LocalDate endDate;
-
-	private LocalTime startTime;
-
-	private LocalTime endTime;
-
+	private String startDate;
+	private String endDate;
+	private String startTime;
+	private String endTime;
 	private String baseParam;
-
 //	private OfferType offertype;
-
 	private String imageUrl1;
-
 	private double rating;
-
 	private long noOfRatings;
-
 	private long views;
-
+	private long likes;
 	private Date createdOn;
-
 	private Date modifiedOn;
-
+	private boolean didLike;
 }

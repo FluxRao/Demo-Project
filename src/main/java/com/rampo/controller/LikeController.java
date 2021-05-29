@@ -33,12 +33,13 @@ public class LikeController {
 		}
 
 		try {
-			Object data = likeService.likeItem(itemId, userName);
-			ResponseOutput output = new ResponseOutput(data, null, true, 200);
+
+			likeService.likeItem(itemId, userName);
+			ResponseOutput output = new ResponseOutput(null, Constants.liked, true, 200);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 
 		} catch (Exception e) {
-			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 400);
+			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 200);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 		}
 	}
@@ -52,12 +53,13 @@ public class LikeController {
 		}
 
 		try {
-			Object data = likeService.likeShop(shopId, userName);
-			ResponseOutput output = new ResponseOutput(data, null, true, 200);
+
+			likeService.likeShop(shopId, userName);
+			ResponseOutput output = new ResponseOutput(null, Constants.liked, true, 200);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 
 		} catch (Exception e) {
-			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 400);
+			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 200);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 		}
 	}
@@ -71,12 +73,33 @@ public class LikeController {
 		}
 
 		try {
-			Object data = likeService.likeBrand(brandName, userName);
-			ResponseOutput output = new ResponseOutput(data, null, true, 200);
+
+			likeService.likeBrand(brandName, userName);
+			ResponseOutput output = new ResponseOutput(null, Constants.liked, true, 200);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 
 		} catch (Exception e) {
-			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 400);
+			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 200);
+			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
+		}
+	}
+
+	@Operation(summary = "endpoint to like offer")
+	@PostMapping("/offer/{userName}/{offerId}")
+	public ResponseEntity<ResponseOutput> likeOffer(@PathVariable String userName, @RequestParam long offerId) {
+		if (userName == null) {
+			ResponseOutput output = new ResponseOutput(null, Constants.please_login_to_continue, false, 401);
+			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
+		}
+
+		try {
+
+			likeService.likeOffer(offerId, userName);
+			ResponseOutput output = new ResponseOutput(null, Constants.liked, true, 200);
+			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
+
+		} catch (Exception e) {
+			ResponseOutput output = new ResponseOutput(null, e.getMessage(), false, 200);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 		}
 	}

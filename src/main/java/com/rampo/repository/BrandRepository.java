@@ -10,7 +10,7 @@ import com.rampo.entity.Brand;
 @Repository
 public interface BrandRepository extends JpaRepository<Brand, String> {
 
-	List<Brand> findByBrandNameStartsWith(String keyword);
+	List<Brand> findByBrandNameContainingIgnoreCase(String keyword);
 
 	List<Brand> findByBrandName(String name);
 }
