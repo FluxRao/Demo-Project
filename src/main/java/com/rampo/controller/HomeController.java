@@ -29,7 +29,7 @@ public class HomeController {
 	@PostMapping("/all")
 	public ResponseEntity<ResponseOutput> getAllData(@RequestBody HomeInput input) {
 
-		String userName = input.getUsername();
+		String userName = input.getUserName();
 
 		try {
 			Object data = dataService.getHomePageData(input, userName);

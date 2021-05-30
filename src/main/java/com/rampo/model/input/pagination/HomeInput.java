@@ -10,6 +10,6 @@ public class HomeInput {
 	private PaginationWithoutPageInput offerInput;
 	private PaginationWithoutPageInput shopInput;
 	private PaginationWithoutPageInput categoryInput;
-	private String username;
+	private String userName;
 	private String city;
 }
