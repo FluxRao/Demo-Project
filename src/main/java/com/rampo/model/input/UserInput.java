@@ -14,4 +14,5 @@ public class UserInput {
 	private String email;
 	private String password;
 	private String imageUrl;
+	private String city;
 }

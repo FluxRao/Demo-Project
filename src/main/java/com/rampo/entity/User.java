@@ -29,6 +29,9 @@ public class User {
 	@Column(name = "password", length = 20, nullable = false)
 	private String password;
 
+	@Column(name = "city", length = 50, nullable = true)
+	private String city;
+
 	@Column(name = "flgactive", nullable = false)
 	private boolean isActive;
 

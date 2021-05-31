@@ -73,7 +73,7 @@ public class ShopService {
 	public String saveShopForNewUser(ShopInputForNewShopper input) throws Exception {
 
 		UserInput userInput = new UserInput(input.getUserName(), input.getContactNo(), input.getEMail(),
-				input.getPassword(), null);
+				input.getPassword(), null, input.getCity());
 
 		User owner = userService.registerShopper(userInput);
 

@@ -19,6 +19,7 @@ public class ShopInputForNewShopper {
 	private String shopOwner;
 	private String contactNo;
 	private String eMail;
+	private String city;
 	private String imageUrl1;
 	private String imageUrl2;
 	private String imageUrl3;

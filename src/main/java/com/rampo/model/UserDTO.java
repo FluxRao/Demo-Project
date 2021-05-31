@@ -14,6 +14,7 @@ public class UserDTO {
 	private String email;
 	private String password;
 	private String imageUrl;
+	private String city;
 	private Date createdOn;
 	private Date modifiedOn;
 }

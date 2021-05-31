@@ -19,5 +19,5 @@ public class OfferSaveInput {
 	private String startingTime;
 	private String endingDate;
 	private String endingTime;
-	private String username;
+	private String userName;
 }

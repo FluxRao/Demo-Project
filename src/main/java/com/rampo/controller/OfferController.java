@@ -71,13 +71,13 @@ public class OfferController {
 	@PostMapping("/save")
 	public ResponseEntity<ResponseOutput> saveOffer(@RequestBody OfferSaveInput input) {
 
-		if (input.getUsername() == null) {
+		if (input.getUserName() == null) {
 			ResponseOutput output = new ResponseOutput(null, Constants.please_login_to_continue, false, 401);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 		}
 
 		try {
-			Object data = offerService.saveOffer(input, input.getUsername());
+			Object data = offerService.saveOffer(input, input.getUserName());
 			ResponseOutput output = new ResponseOutput(data, null, true, 200);
 			return new ResponseEntity<ResponseOutput>(output, HttpStatus.OK);
 
