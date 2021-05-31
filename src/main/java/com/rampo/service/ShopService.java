@@ -75,7 +75,7 @@ public class ShopService {
 		UserInput userInput = new UserInput(input.getUserName(), input.getContactNo(), input.getEMail(),
 				input.getPassword(), null, input.getCity());
 
-		User owner = userService.registerShopper(userInput);
+		User owner = userService.registerShopper(userInput); 
 
 		Shop shop = ObjectMapper.map(input, Shop.class);
 		shop.setRating(0);
