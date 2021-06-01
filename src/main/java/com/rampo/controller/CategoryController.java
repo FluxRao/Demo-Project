@@ -26,7 +26,7 @@ import io.swagger.v3.oas.annotations.Operation;
 public class CategoryController {
 
 	@Autowired
-	private CategoryService categoryService;
+	private CategoryService categoryService; 
 
 	@Operation(summary = "endpoint to get all category details")
 	@PostMapping("/all")
