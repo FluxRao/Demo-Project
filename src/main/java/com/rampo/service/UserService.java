@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import com.rampo.entity.Roles;
 import com.rampo.entity.User;
 import com.rampo.entity.UserAuthority;
-import com.rampo.model.UserDTO;
 import com.rampo.model.input.ChangePasswordInput;
 import com.rampo.model.input.EditUserInput;
 import com.rampo.model.input.ForgotPasswordInput;
@@ -159,9 +158,9 @@ public class UserService {
 
 	public User getUserDetails(String userName) throws Exception {
 
-		Optional<User> userOptional = userRepo.findById(userName);
+		Optional<User> userOptional = userRepo.findById(userName); 
 		if (userOptional.isPresent()) {
-			return ObjectMapper.map(userOptional.get(), UserDTO.class);
+			return userOptional.get();
 		}
 		throw new Exception(Constants.some_error_occured);
 	}

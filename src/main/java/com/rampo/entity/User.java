@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.UpdateTimestamp;
-
 import lombok.Data;
 
 @Data
@@ -41,7 +39,6 @@ public class User {
 	@Column(name = "createdon", nullable = true, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date createdOn;
 
-	@UpdateTimestamp
 	@Column(name = "modifiedon", nullable = true)
 	private Date modifiedOn;
 }
